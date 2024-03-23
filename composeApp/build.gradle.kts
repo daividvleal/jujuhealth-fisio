@@ -33,10 +33,14 @@ kotlin {
             dependencies {
                 implementation(project.dependencies.platform(libs.compose.bom))
                 implementation(libs.compose.ui)
+                implementation(libs.compose.ui.tooling)
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.ktor.client.okhttp)
                 implementation(project.dependencies.platform(libs.firebase.bom))
+                implementation(libs.firebase.firestore.ktx)
+                implementation(libs.firebase.auth.ktx)
+                implementation(libs.firebase.common.ktx)
             }
 
             // Required for moko-resources to work
@@ -60,9 +64,6 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.moko.resources.compose)
 
-            implementation(libs.firebase.firestore.ktx)
-            implementation(libs.firebase.auth.ktx)
-            implementation(libs.firebase.common.ktx)
         }
     }
 }

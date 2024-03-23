@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Juju Fisioterapeuta</string>
     <!-- Login Screen -->
-    <string name="welcome_message">Bem vindo!!!\nAqui você consegue fazer o acompanhamento dos seus pacientes. Gostou da ideia do app, entre em contato: daivid.v.leal@gmail.com</string>
+    <string name="welcome_message">Bem vindo ao Juju para Fisioterapeutas!\nAqui você consegue fazer o acompanhamento dos seus pacientes.</string>
     <string name="login">Login</string>
     <string name="password">Senha</string>
     <!-- End Login Screen -->
