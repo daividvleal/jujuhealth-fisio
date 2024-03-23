@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.mokoResources)
+    alias(libs.plugins.googleServices)
 }
 
 kotlin {
@@ -35,6 +36,7 @@ kotlin {
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.ktor.client.okhttp)
+                implementation(project.dependencies.platform(libs.firebase.bom))
             }
 
             // Required for moko-resources to work
@@ -57,6 +59,10 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
             implementation(libs.moko.resources.compose)
+
+            implementation(libs.firebase.firestore.ktx)
+            implementation(libs.firebase.auth.ktx)
+            implementation(libs.firebase.common.ktx)
         }
     }
 }
@@ -96,12 +102,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    dependencies {
-        debugImplementation(libs.compose.ui.tooling)
-    }
-}
-dependencies {
-    implementation(libs.androidx.ui.tooling.preview.android)
 }
 
 multiplatformResources {
