@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "228149970989",
+    "firebase_url": "https://juju-235900.firebaseio.com",
+    "project_id": "juju-235900",
+    "storage_bucket": "juju-235900.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228149970989:android:eeb78f4e26c790bbf050a4",
+        "android_client_info": {
+          "package_name": "br.com.jujuhealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228149970989-f5a1tb02t74vfoupacgerhjr24r89fr5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.jujuhealth",
+            "certificate_hash": "87976f74792ba892d55a5faa1c959edfecf590df"
+          }
+        },
+        {
+          "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnL3jwCA1HNKt5aCaJX1rcZ9SooyfATDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "228149970989-kdu0vfp1bjm0csq1e7hn0fspadm13t20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.jujuhealth.juju"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228149970989:android:2d5c03b605c3b3b6f050a4",
+        "android_client_info": {
+          "package_name": "br.com.jujuhealth.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228149970989-sh6httlg2v41748ke8uvceasg0sg7mlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.jujuhealth.debug",
+            "certificate_hash": "62fbe20801ed2a6a025b341b9d0cfd529b6c5b91"
+          }
+        },
+        {
+          "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnL3jwCA1HNKt5aCaJX1rcZ9SooyfATDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "228149970989-kdu0vfp1bjm0csq1e7hn0fspadm13t20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.jujuhealth.juju"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228149970989:android:51caec6bf4bc0d21f050a4",
+        "android_client_info": {
+          "package_name": "br.com.jujuhealth.physio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnL3jwCA1HNKt5aCaJX1rcZ9SooyfATDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228149970989-qut5ngphikqboduuk8maqbva6fl21fsm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "228149970989-kdu0vfp1bjm0csq1e7hn0fspadm13t20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.jujuhealth.juju"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
