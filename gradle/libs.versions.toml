@@ -20,6 +20,7 @@ firebaseBom = "32.8.0"
 googleService = "4.4.1"
 firebaseCommonKtx = "20.4.3"
 firebaseJavaSdk = "0.3.1"
+firebaseKotlinSdk = "1.11.1"
 
 
 [libraries]
@@ -44,6 +45,8 @@ firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx",
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-java-sdk = { group = "dev.gitlive", name = "firebase-java-sdk", version.ref = "firebaseJavaSdk" }
+firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebaseKotlinSdk" }
+firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebaseKotlinSdk" }
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }

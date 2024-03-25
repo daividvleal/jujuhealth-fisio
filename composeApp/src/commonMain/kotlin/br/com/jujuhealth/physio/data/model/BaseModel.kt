@@ -8,6 +8,7 @@ data class BaseModel<T, E>(
     var data: T? = null,
     var error: E? = null
 ) {
+
     @Serializable
     enum class Status {
         DEFAULT, LOADING, SUCCESS, ERROR

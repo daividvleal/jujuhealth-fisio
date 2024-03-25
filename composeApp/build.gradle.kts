@@ -38,11 +38,8 @@ kotlin {
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.ktor.client.okhttp)
                 implementation(project.dependencies.platform(libs.firebase.bom))
-                implementation(libs.firebase.firestore.ktx)
-                implementation(libs.firebase.auth.ktx)
                 implementation(libs.firebase.common.ktx)
             }
-
             // Required for moko-resources to work
             dependsOn(commonMain.get())
         }
@@ -63,6 +60,9 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
             implementation(libs.moko.resources.compose)
+
+            implementation(libs.firebase.firestore)
+            implementation(libs.firebase.auth)
 
         }
     }

@@ -1,11 +1,11 @@
 package br.com.jujuhealth.physio.data.model
 
+import dev.gitlive.firebase.firestore.Timestamp
 import kotlinx.serialization.Serializable
-import kotlin.collections.ArrayList
 
 @Serializable
 data class TrainingDiary(
-//      var date: Timestamp = Timestamp(Calendar.getInstance().time),
+    var date: Timestamp = Timestamp.now(),
     var seriesSlowEasy: Int = 0,
     var seriesSlowMedium: Int = 0,
     var seriesSlowHard: Int = 0,
