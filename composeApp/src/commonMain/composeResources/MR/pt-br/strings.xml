@@ -4,6 +4,7 @@
     <!-- Login Screen -->
     <string name="welcome_message">Bem vindo ao Juju para Fisioterapeutas!\nAqui você consegue fazer o acompanhamento dos seus pacientes.</string>
     <string name="login">Login</string>
-    <string name="password">Senha</string>
+    <string name="email">E-mail:</string>
+    <string name="password">Senha:</string>
     <!-- End Login Screen -->
 </resources>

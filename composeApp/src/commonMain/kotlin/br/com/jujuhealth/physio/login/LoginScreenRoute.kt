@@ -68,7 +68,7 @@ fun LoginScree() {
                     value = email,
                     onValueChange = { email = it },
                     placeholder = {
-                        Text("E-mail")
+                        Text(stringResource(MR.strings.email))
                     }
                 )
                 TextField(
@@ -76,14 +76,14 @@ fun LoginScree() {
                     value = password,
                     onValueChange = { password = it },
                     placeholder = {
-                        Text("Password:")
+                        Text(stringResource(MR.strings.password))
                     }
                 )
                 Button(
                     onClick = {
 
                     }, content = {
-                        Text("Login")
+                        Text(stringResource(MR.strings.login))
                     })
             }
         }
