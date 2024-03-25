@@ -1,19 +1,24 @@
 [versions]
 compose-compiler = "1.5.5"
 compose-plugin = "1.6.0"
-agp = "8.2.2"
+agp = "8.3.1"
 android-minSdk = "24"
 android-compileSdk = "34"
 android-targetSdk = "34"
 androidx-activityCompose = "1.8.2"
-jetpack-compose-bom = "2024.02.02"
+jetpack-compose-bom = "2024.03.00"
 koin = "3.5.3"
 kotlin = "1.9.22"
 ktor = "2.3.8"
 kamel = "0.9.1"
 voyager = "1.0.0"
 moko-resources = "0.23.0"
-uiToolingPreviewAndroid = "1.6.3"
+uiToolingPreviewAndroid = "1.6.4"
+firebaseBom = "32.8.0"
+googleService = "4.4.1"
+firebaseCommonKtx = "20.4.3"
+firebaseKotlinSdk = "1.11.1"
+
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "jetpack-compose-bom" }
@@ -32,6 +37,10 @@ voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
+firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebaseKotlinSdk" }
+firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebaseKotlinSdk" }
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
@@ -39,3 +48,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 mokoResources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleService" }
