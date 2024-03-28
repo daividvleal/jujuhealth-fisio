@@ -28,6 +28,8 @@ kotlin {
     }
     
     sourceSets {
+        // Required for moko-resources to work
+        applyDefaultHierarchyTemplate()
 
         androidMain {
             dependencies {
@@ -40,7 +42,6 @@ kotlin {
                 implementation(project.dependencies.platform(libs.firebase.bom))
             }
             // Required for moko-resources to work
-            // Enable to build Android
             dependsOn(commonMain.get())
         }
         iosMain.dependencies {
