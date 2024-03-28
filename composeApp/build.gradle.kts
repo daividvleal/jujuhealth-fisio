@@ -38,9 +38,9 @@ kotlin {
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.ktor.client.okhttp)
                 implementation(project.dependencies.platform(libs.firebase.bom))
-                implementation(libs.firebase.common.ktx)
             }
             // Required for moko-resources to work
+            // Enable to build Android
             dependsOn(commonMain.get())
         }
         iosMain.dependencies {
@@ -61,9 +61,9 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.moko.resources.compose)
 
+            implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
             implementation(libs.firebase.auth)
-
         }
     }
 }
@@ -102,6 +102,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    dependencies {
+        debugImplementation(libs.compose.ui.tooling)
     }
 }
 

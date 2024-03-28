@@ -1,7 +1,7 @@
 [versions]
 compose-compiler = "1.5.5"
-compose-plugin = "1.6.0"
-agp = "8.3.1"
+compose-plugin = "1.6.1"
+agp = "8.2.2"
 android-minSdk = "24"
 android-compileSdk = "34"
 android-targetSdk = "34"
@@ -13,10 +13,8 @@ ktor = "2.3.8"
 kamel = "0.9.1"
 voyager = "1.0.0"
 moko-resources = "0.23.0"
-uiToolingPreviewAndroid = "1.6.4"
 firebaseBom = "32.8.0"
 googleService = "4.4.1"
-firebaseCommonKtx = "20.4.3"
 firebaseKotlinSdk = "1.11.1"
 
 
@@ -36,8 +34,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
-androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
-firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
+firebase-common = { group = "dev.gitlive", name = "firebase-common", version.ref = "firebaseKotlinSdk" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebaseKotlinSdk" }
 firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebaseKotlinSdk" }

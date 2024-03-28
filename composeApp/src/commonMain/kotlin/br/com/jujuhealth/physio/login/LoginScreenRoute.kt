@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import br.com.jujuhealth.physio.MR
 import cafe.adriel.voyager.core.screen.Screen
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -48,7 +47,7 @@ fun LoginScree() {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                text = stringResource(MR.strings.app_name)
+                text = "Juju Fisioterapeuta"
             )
         }
 
@@ -68,7 +67,7 @@ fun LoginScree() {
                     value = email,
                     onValueChange = { email = it },
                     placeholder = {
-                        Text(stringResource(MR.strings.email))
+                        Text("E-mail:")
                     }
                 )
                 TextField(
@@ -76,14 +75,14 @@ fun LoginScree() {
                     value = password,
                     onValueChange = { password = it },
                     placeholder = {
-                        Text(stringResource(MR.strings.password))
+                        Text("Password:")
                     }
                 )
                 Button(
                     onClick = {
 
                     }, content = {
-                        Text(stringResource(MR.strings.login))
+                        Text("Login")
                     })
             }
         }
@@ -96,7 +95,7 @@ fun LoginScree() {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                text = stringResource(MR.strings.welcome_message)
+                text = "Bem vindo ao Juju para Fisioterapeutas!\\nAqui você consegue fazer o acompanhamento dos seus pacientes."
             )
         }
 
