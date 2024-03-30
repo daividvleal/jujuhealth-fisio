@@ -1,7 +1,7 @@
 package br.com.jujuhealth.physio.di
 
-import br.com.jujuhealth.physio.data.request.sign.ServiceAuth
-import br.com.jujuhealth.physio.data.request.sign.ServiceAuthContract
+import br.com.jujuhealth.physio.data.request.auth.ServiceAuth
+import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
@@ -26,7 +26,9 @@ val repositoryModule = module {
     single<ServiceAuthContract> { ServiceAuth(get(), get()) }
 }
 
-val screenModelsModule = module {}
+val screenModelsModule = module {
+    factory {  }
+}
 
 fun initKoin() {
     startKoin {

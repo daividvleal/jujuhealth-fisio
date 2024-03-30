@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.data.request.sign
+package br.com.jujuhealth.physio.data.request.auth
 
 import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.firestore.Timestamp

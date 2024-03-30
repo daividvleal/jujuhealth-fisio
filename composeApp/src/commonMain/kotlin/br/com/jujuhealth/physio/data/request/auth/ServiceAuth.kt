@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.data.request.sign
+package br.com.jujuhealth.physio.data.request.auth
 
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
@@ -7,6 +7,7 @@ import dev.gitlive.firebase.firestore.Timestamp
 
 class ServiceAuth(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
     ServiceAuthContract {
+
 
     override suspend fun signUp(
         name: String,
