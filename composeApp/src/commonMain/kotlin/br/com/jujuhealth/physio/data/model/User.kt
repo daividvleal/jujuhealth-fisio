@@ -1,7 +1,9 @@
 package br.com.jujuhealth.physio.data.model
 
 import dev.gitlive.firebase.auth.FirebaseUser
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
     val name: String? = "",
     val uId: String? = "",

@@ -1,57 +1,59 @@
 package br.com.jujuhealth.physio.data.request.auth
 
+import br.com.jujuhealth.physio.data.model.User
 import dev.gitlive.firebase.auth.FirebaseAuth
-import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.firestore.FirebaseFirestore
-import dev.gitlive.firebase.firestore.Timestamp
 
 class ServiceAuth(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
     ServiceAuthContract {
 
-
-    override suspend fun signUp(
-        name: String,
-        birthday: Timestamp,
-        email: String,
-        password: String,
-        success: (FirebaseUser?) -> Unit,
-        error: (Throwable?) -> Unit
-    ) {
-        auth.createUserWithEmailAndPassword(email, password)
-    }
-
     override suspend fun signIn(
         email: String,
         password: String,
-        success: (FirebaseUser?) -> Unit,
-        error: (Throwable?) -> Unit
-    ) {
-        auth.signInWithEmailAndPassword(email, password)
-    }
-
-    override fun checkUserLogged(
-        success: (FirebaseUser?) -> Unit,
+        success: (User?) -> Unit,
         error: () -> Unit
     ) {
-        if (auth.currentUser != null) {
-            success(auth.currentUser)
-        } else {
-            error()
+        val task = auth.signInWithEmailAndPassword(email, password)
+        try {
+            task.runCatching {
+                this.user?.let { firebaseUser ->
+                    firebaseUser.let {
+                        success.invoke(User.buildUser(firebaseUser))
+                    }
+                } ?: error.invoke()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            error.invoke()
         }
     }
 
-    override suspend fun signOut() {
-        auth.signOut()
-        database.clearPersistence()
+    override suspend fun signOut(error: () -> Unit) {
+        try {
+            auth.signOut().runCatching { }
+            database.clearPersistence().runCatching { }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            error.invoke()
+        }
     }
 
     override suspend fun updatePassword(
         pwdActual: String,
         pwd: String,
         success: () -> Unit,
-        error: (Throwable?) -> Unit
+        error: () -> Unit
     ) {
-        auth.signInWithEmailAndPassword(auth.currentUser?.email!!, pwdActual)
+        try {
+            auth.signInWithEmailAndPassword(auth.currentUser?.email!!, pwdActual).runCatching {
+                this.user?.let {
+                    success.invoke()
+                } ?: error.invoke()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            error.invoke()
+        }
     }
 
 }
