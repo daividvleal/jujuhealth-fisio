@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.ui.auth.login
+package br.com.jujuhealth.physio.ui.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,9 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.jujuhealth.physio.MR
 import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.User
 import br.com.jujuhealth.physio.data.model.ViewModelState
-import br.com.jujuhealth.physio.ui.auth.AuthScreenModel
 import br.com.jujuhealth.physio.ui.home.HomeScreenRoute
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
@@ -38,20 +36,20 @@ data object LoginScreenRoute : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val authScreenModel: AuthScreenModel = getScreenModel()
+        val loginScreenModel: LoginScreenModel = getScreenModel()
 
-        val loginResult by authScreenModel.loginStateResult.collectAsState()
+        val loginStateFlow by loginScreenModel.loginStateResult.collectAsState()
         var buttonLoading by rememberSaveable { mutableStateOf(false) }
         var errorMessage by rememberSaveable { mutableStateOf("") }
 
-        when (loginResult) {
+        when (loginStateFlow) {
             is ViewModelState.Error -> {
                 buttonLoading = false
                 errorMessage =
-                    ((loginResult as ViewModelState.Error<*>).error as? ErrorModel)?.getErrorMessage()
+                    ((loginStateFlow as ViewModelState.Error<*>).error as? ErrorModel)?.getErrorMessage()
                         .orEmpty()
                 LoginScree(
-                    authScreenModel = authScreenModel,
+                    loginScreenModel = loginScreenModel,
                     loading = buttonLoading,
                     errorMessage = errorMessage
                 )
@@ -61,7 +59,7 @@ data object LoginScreenRoute : Screen {
                 buttonLoading = true
                 errorMessage = String()
                 LoginScree(
-                    authScreenModel = authScreenModel,
+                    loginScreenModel = loginScreenModel,
                     loading = buttonLoading,
                     errorMessage = errorMessage
                 )
@@ -71,13 +69,12 @@ data object LoginScreenRoute : Screen {
                 buttonLoading = true
                 errorMessage = String()
                 navigator.popUntilRoot()
-                val user = (loginResult as? ViewModelState.Success)?.data as? User
-                navigator.push(HomeScreenRoute(user))
+                navigator.push(HomeScreenRoute)
             }
 
             ViewModelState.Default -> {
                 LoginScree(
-                    authScreenModel = authScreenModel,
+                    loginScreenModel = loginScreenModel,
                     loading = buttonLoading,
                     errorMessage = errorMessage
                 )
@@ -89,7 +86,7 @@ data object LoginScreenRoute : Screen {
 
 @Composable
 fun LoginScree(
-    authScreenModel: AuthScreenModel,
+    loginScreenModel: LoginScreenModel,
     loading: Boolean = false,
     errorMessage: String = String()
 ) {
@@ -142,7 +139,7 @@ fun LoginScree(
                 )
                 Button(
                     onClick = {
-                        authScreenModel.singIn(
+                        loginScreenModel.singIn(
                             email = email,
                             password = password
                         )

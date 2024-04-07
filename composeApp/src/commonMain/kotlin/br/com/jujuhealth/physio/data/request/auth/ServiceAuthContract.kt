@@ -7,7 +7,7 @@ interface ServiceAuthContract {
     suspend fun signIn(
         email: String,
         password: String,
-        success: (User?) -> Unit,
+        success: () -> Unit,
         error: () -> Unit
     )
 
@@ -19,5 +19,7 @@ interface ServiceAuthContract {
         success: () -> Unit,
         error: () -> Unit
     )
+
+    suspend fun getUser(success: (User?) -> Unit, error: () -> Unit)
 
 }

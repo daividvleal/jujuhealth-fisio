@@ -2,8 +2,10 @@ package br.com.jujuhealth.physio.di
 
 import br.com.jujuhealth.physio.data.request.auth.ServiceAuth
 import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
-import br.com.jujuhealth.physio.data.use_case.ServiceAuthUseCase
-import br.com.jujuhealth.physio.ui.auth.AuthScreenModel
+import br.com.jujuhealth.physio.data.use_case.GetUserUseCase
+import br.com.jujuhealth.physio.data.use_case.SignInUseCase
+import br.com.jujuhealth.physio.ui.home.HomeScreenModel
+import br.com.jujuhealth.physio.ui.login.LoginScreenModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.auth
@@ -32,11 +34,13 @@ val repositoryModule = module {
 }
 
 val useCaseModule = module {
-    factory { ServiceAuthUseCase(get()) }
+    factory { SignInUseCase(get()) }
+    factory { GetUserUseCase(get()) }
 }
 
 val screenModelsModule = module {
-    factory { AuthScreenModel(get()) }
+    factory { LoginScreenModel(get()) }
+    factory { HomeScreenModel(get()) }
 }
 
 fun initKoin() {
