@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import br.com.jujuhealth.physio.login.LoginScreenRoute
+import br.com.jujuhealth.physio.ui.login.LoginScreenRoute
 
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
