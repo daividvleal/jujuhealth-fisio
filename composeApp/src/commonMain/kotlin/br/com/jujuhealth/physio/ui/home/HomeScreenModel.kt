@@ -21,6 +21,7 @@ class HomeScreenModel(private val getUserUseCase: GetUserUseCase) : ScreenModel 
         _userState
 
     fun getUser() {
+        _userState.update { ViewModelState.Loading(true) }
         screenModelScope.launch {
             getUserUseCase.run(
                 success = {

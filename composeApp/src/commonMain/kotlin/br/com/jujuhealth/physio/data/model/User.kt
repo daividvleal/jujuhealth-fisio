@@ -11,6 +11,6 @@ data class User(
     val patients: List<String> = mutableListOf()
 ) {
 
-    private var mutablePatientList: List<Patient> = mutableListOf()
+    var mutablePatientList = mutableListOf<Patient>()
 
 }
