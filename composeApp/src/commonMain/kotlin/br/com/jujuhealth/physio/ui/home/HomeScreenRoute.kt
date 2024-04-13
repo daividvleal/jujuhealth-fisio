@@ -45,7 +45,8 @@ data object HomeScreenRoute : Screen {
             }
 
             is ViewModelState.Error -> {
-                CreateGenericError(ErrorModel(MR.strings.general_error_message))
+                val errorModel = (userStateFlow as ViewModelState.Error).error as ErrorModel
+                CreateGenericError(errorModel)
             }
 
             is ViewModelState.Loading -> {
@@ -71,28 +72,32 @@ fun CreateHomeScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            // IMAGE
             Text(text = user.name.orEmpty())
             Text(text = user.email.orEmpty())
             Text(text = user.uId.orEmpty())
         }
 
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            user.mutablePatientList.forEach {
-                item {
-                    createPatientItem(patient = it)
+        user.mutablePatientList.takeIf { it.isNotEmpty() }?.let {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                user.mutablePatientList.forEach {
+                    item {
+                        createPatientItem(patient = it)
+                    }
                 }
             }
+        } ?: run {
+            CreateGenericError(ErrorModel(MR.strings.general_empty_message))
         }
+
 
     }
 }
 
 @Composable
-fun createPatientItem(modifier: Modifier = Modifier.fillMaxWidth(), patient: Patient){
-
+fun createPatientItem(modifier: Modifier = Modifier.fillMaxWidth(), patient: Patient) {
     Card(
         modifier = modifier
     ) {

@@ -5,7 +5,7 @@ import br.com.jujuhealth.physio.data.request.COLLECTION_PHYSIOS
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 
-class ServiceAuth(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
+class ServiceAuthImpl(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
     ServiceAuthContract {
 
     override suspend fun signIn(

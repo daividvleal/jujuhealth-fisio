@@ -6,7 +6,14 @@
     <string name="login">Login</string>
     <string name="email">E-mail:</string>
     <string name="password">Password:</string>
-    <string name="general_error_message">Ops, aconteceu um problema por aqui, por favor tente novamente mais tarde!</string>
     <string name="email_password_error_message">Verifique seu e-mail e senha e tente novamente por favor!</string>
     <!-- End Login Screen -->
+
+    <!-- Home Screen -->
+    <!-- End Home Screen -->
+
+    <!-- Home Screen -->
+    <string name="general_error_message">Ops, aconteceu um problema por aqui, por favor tente novamente mais tarde!</string>
+    <string name="general_empty_message">Você ainda não tem pacientes adicionados!</string>
+    <!-- End Home Screen -->
 </resources>
