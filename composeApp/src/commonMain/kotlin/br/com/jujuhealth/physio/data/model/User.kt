@@ -12,5 +12,4 @@ data class User(
 ) {
 
     var mutablePatientList = mutableListOf<Patient>()
-
 }

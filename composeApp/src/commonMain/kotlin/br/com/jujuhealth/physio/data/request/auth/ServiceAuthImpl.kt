@@ -14,8 +14,8 @@ class ServiceAuthImpl(private val auth: FirebaseAuth, private val database: Fire
         success: () -> Unit,
         error: () -> Unit
     ) {
-        val task = auth.signInWithEmailAndPassword(email, password)
         try {
+            val task = auth.signInWithEmailAndPassword(email, password)
             task.runCatching {
                 this.user?.let { firebaseUser ->
                     firebaseUser.let {

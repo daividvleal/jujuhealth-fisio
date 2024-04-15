@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.ui.common
+package br.com.jujuhealth.physio.ui.uikit
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

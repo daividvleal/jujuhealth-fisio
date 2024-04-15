@@ -10,6 +10,8 @@
     <!-- End Login Screen -->
 
     <!-- Home Screen -->
+    <string name="home_toolbar_name">Home</string>
+    <string name="patients">Pacientes</string>
     <!-- End Home Screen -->
 
     <!-- Home Screen -->
