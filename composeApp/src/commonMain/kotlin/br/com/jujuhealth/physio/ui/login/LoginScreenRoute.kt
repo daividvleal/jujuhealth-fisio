@@ -1,5 +1,6 @@
 package br.com.jujuhealth.physio.ui.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,10 +25,12 @@ import br.com.jujuhealth.physio.MR
 import br.com.jujuhealth.physio.data.model.ErrorModel
 import br.com.jujuhealth.physio.data.model.ViewModelState
 import br.com.jujuhealth.physio.ui.home.HomeScreenRoute
+import br.com.jujuhealth.physio.ui.uikit.TextField
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
 
 data object LoginScreenRoute : Screen {
@@ -91,11 +93,11 @@ fun LoginScree(
     errorMessage: String = String()
 ) {
 
-    var email by rememberSaveable { mutableStateOf("daivid.v.leal@gmail.com") }
-    var password by rememberSaveable { mutableStateOf("123456") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(colorResource(MR.colors.colorPrimary)),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
@@ -106,6 +108,7 @@ fun LoginScree(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
+                color = Color.White,
                 text = stringResource(MR.strings.app_name)
             )
         }
@@ -122,19 +125,17 @@ fun LoginScree(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    onValueChange = { email = it },
-                    placeholder = {
-                        Text(stringResource(MR.strings.email))
+                    text = email,
+                    hint = stringResource(MR.strings.email),
+                    onValueChange = {
+                        email = it
                     }
                 )
                 TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = password,
-                    onValueChange = { password = it },
-                    placeholder = {
-                        Text(stringResource(MR.strings.password))
+                    text = password,
+                    hint = stringResource(MR.strings.password),
+                    onValueChange = {
+                        password = it
                     }
                 )
                 Button(
@@ -165,6 +166,7 @@ fun LoginScree(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
+                color = Color.White,
                 text = stringResource(MR.strings.welcome_message)
             )
         }

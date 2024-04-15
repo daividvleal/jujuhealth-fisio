@@ -1,9 +1,10 @@
-package br.com.jujuhealth.physio.ui.common
+package br.com.jujuhealth.physio.ui.uikit
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ fun CreateGenericLoading() {
     ) {
         Row(
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp),
+                .padding(start = 16.dp, end = 16.dp).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {

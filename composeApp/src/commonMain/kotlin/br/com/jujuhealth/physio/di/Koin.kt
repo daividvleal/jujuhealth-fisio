@@ -1,8 +1,11 @@
 package br.com.jujuhealth.physio.di
 
-import br.com.jujuhealth.physio.data.request.auth.ServiceAuth
+import br.com.jujuhealth.physio.data.request.auth.ServiceAuthImpl
 import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
+import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
+import br.com.jujuhealth.physio.data.request.patient.ServicePatientImpl
 import br.com.jujuhealth.physio.data.use_case.GetUserUseCase
+import br.com.jujuhealth.physio.data.use_case.LoadPatientsUseCase
 import br.com.jujuhealth.physio.data.use_case.SignInUseCase
 import br.com.jujuhealth.physio.ui.home.HomeScreenModel
 import br.com.jujuhealth.physio.ui.login.LoginScreenModel
@@ -30,17 +33,19 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single<ServiceAuthContract> { ServiceAuth(get(), get()) }
+    single<ServiceAuthContract> { ServiceAuthImpl(get(), get()) }
+    single<ServicePatientContract> { ServicePatientImpl(get()) }
 }
 
 val useCaseModule = module {
     factory { SignInUseCase(get()) }
     factory { GetUserUseCase(get()) }
+    factory { LoadPatientsUseCase(get()) }
 }
 
 val screenModelsModule = module {
     factory { LoginScreenModel(get()) }
-    factory { HomeScreenModel(get()) }
+    factory { HomeScreenModel(get(), get()) }
 }
 
 fun initKoin() {
