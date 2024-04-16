@@ -6,6 +6,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import br.com.jujuhealth.physio.MR
+import br.com.jujuhealth.physio.ui.details.PatientDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.home.HomeScreenRoute
 import br.com.jujuhealth.physio.ui.login.LoginScreenRoute
 import cafe.adriel.voyager.navigator.Navigator
@@ -22,7 +23,7 @@ fun App() {
         )
     ) {
         MR.colors.colorPrimary
-        Navigator(LoginScreenRoute)
+        Navigator(PatientDetailsScreenRoute())
     }
 }
 

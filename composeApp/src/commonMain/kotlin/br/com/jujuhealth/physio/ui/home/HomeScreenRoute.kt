@@ -2,6 +2,7 @@ package br.com.jujuhealth.physio.ui.home
 
 import CreateGenericError
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -116,7 +117,11 @@ fun CreateHomeScreen(
                 personName = user.name,
                 personEmail = user.email
             )
-            Text(modifier = Modifier.padding(top = 16.dp), fontSize = 24.sp, text = stringResource(MR.strings.patients))
+            Text(
+                modifier = Modifier.padding(top = 16.dp),
+                fontSize = 24.sp,
+                text = stringResource(MR.strings.patients)
+            )
             user.mutablePatientList.takeIf { it.isNotEmpty() }?.let {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
@@ -142,11 +147,13 @@ fun createPatientItem(
     val navigator = LocalNavigator.currentOrThrow
     Card(
         modifier = modifier.padding(top = 8.dp),
-        backgroundColor = colorResource(MR.colors.colorAccentDark)
+        backgroundColor = colorResource(MR.colors.softPink)
     ) {
         Row(
             modifier = modifier.padding(24.dp)
-                .clickable { navigator.push(PatientDetailsScreenRoute) },
+                .clickable {
+                    navigator.push(PatientDetailsScreenRoute(patient))
+                },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -155,7 +162,9 @@ fun createPatientItem(
                 Text(text = patient.email.orEmpty(), fontSize = 16.sp, color = Color.White)
             }
             Image(
-                modifier = Modifier.clickable { navigator.push(PatientDetailsScreenRoute) },
+                modifier = Modifier.clickable {
+                    navigator.push(PatientDetailsScreenRoute(patient))
+                },
                 painter = painterResource(MR.images.ic_edit),
                 contentDescription = "Edit Patient Details"
             )

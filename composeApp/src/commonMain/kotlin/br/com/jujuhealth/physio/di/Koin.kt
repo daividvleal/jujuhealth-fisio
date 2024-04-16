@@ -5,8 +5,10 @@ import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientImpl
 import br.com.jujuhealth.physio.data.use_case.GetUserUseCase
+import br.com.jujuhealth.physio.data.use_case.LoadPatientDiaryUseCase
 import br.com.jujuhealth.physio.data.use_case.LoadPatientsUseCase
 import br.com.jujuhealth.physio.data.use_case.SignInUseCase
+import br.com.jujuhealth.physio.ui.details.PatientDetailsScreenModel
 import br.com.jujuhealth.physio.ui.home.HomeScreenModel
 import br.com.jujuhealth.physio.ui.login.LoginScreenModel
 import dev.gitlive.firebase.Firebase
@@ -41,11 +43,13 @@ val useCaseModule = module {
     factory { SignInUseCase(get()) }
     factory { GetUserUseCase(get()) }
     factory { LoadPatientsUseCase(get()) }
+    factory { LoadPatientDiaryUseCase(get()) }
 }
 
 val screenModelsModule = module {
     factory { LoginScreenModel(get()) }
     factory { HomeScreenModel(get(), get()) }
+    factory { PatientDetailsScreenModel(get()) }
 }
 
 fun initKoin() {
