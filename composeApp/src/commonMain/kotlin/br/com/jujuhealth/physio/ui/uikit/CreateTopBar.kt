@@ -9,17 +9,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun CreateTopBar(title: String, onNavigationIconClick: () -> Unit = {}) {
     TopAppBar(
-        title = { Text(text = title) },
+        title = { Text(text = title, fontWeight = FontWeight.Bold) },
         navigationIcon = {
             IconButton(onClick = onNavigationIconClick) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Back")
             }
         },
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = MaterialTheme.colors.primaryVariant,
         contentColor = Color.White
     )
 }

@@ -12,6 +12,7 @@
     <!-- Home Screen -->
     <string name="home_toolbar_name">Home</string>
     <string name="patients">Pacientes</string>
+    <string name="patient_diary">Diário do Paciente</string>
     <!-- End Home Screen -->
 
     <!-- Patient Screen -->

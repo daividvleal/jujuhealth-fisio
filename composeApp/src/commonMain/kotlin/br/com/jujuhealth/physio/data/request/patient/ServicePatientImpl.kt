@@ -49,11 +49,13 @@ class ServicePatientImpl(
         try {
             database.collection(COLLECTION_TRAINING_DIARY).document(patientId)
                 .collection(COLLECTION_DIARY).get().runCatching {
-                val trainingDiary = arrayListOf<TrainingDiary>()
+                val trainingDiaryList = arrayListOf<TrainingDiary>()
                 this.documents.forEach {
-                    trainingDiary.add(it.data())
+                    val trainingDiary = it.data<TrainingDiary>()
+                            //trainingDiary.formattedDate = FieldPath().documentId.toString()
+                    trainingDiaryList.add(trainingDiary)
                 }
-                success(trainingDiary)
+                success(trainingDiaryList)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -74,11 +76,12 @@ class ServicePatientImpl(
                 FieldPath().documentId greaterThan startDate
                 FieldPath().documentId lessThan endDate
             }.get().runCatching {
-                val trainingDiary = arrayListOf<TrainingDiary>()
+                val trainingDiaryList = arrayListOf<TrainingDiary>()
                 this.documents.forEach {
-                    trainingDiary.add(it.data())
+                    val trainingDiary = it.data<TrainingDiary>()
+                    trainingDiaryList.add(trainingDiary)
                 }
-                success(trainingDiary)
+                success(trainingDiaryList)
             }
         } catch (e: Exception) {
             e.printStackTrace()

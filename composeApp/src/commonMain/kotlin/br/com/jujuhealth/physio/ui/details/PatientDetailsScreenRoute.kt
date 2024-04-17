@@ -20,6 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.jujuhealth.physio.MR
@@ -54,11 +57,11 @@ class PatientDetailsScreenRoute(
         val patientDetailsScreenModel: PatientDetailsScreenModel = getScreenModel()
         val patientDiaryListStateFlow by patientDetailsScreenModel.patientDiaryList.collectAsState()
 
-        val trainingDiaryListContent: @Composable ((PaddingValues) -> Unit)? =
+        val trainingDiaryListContent: @Composable ((PaddingValues) -> Unit) =
             when (patientDiaryListStateFlow) {
                 is ViewModelState.Success -> { _ ->
                     val trainingDiaryList =
-                        (patientDiaryListStateFlow as ViewModelState.Success).data as ArrayList<TrainingDiary>
+                        (patientDiaryListStateFlow as ViewModelState.Success).data as ArrayList<*>
                     createTrainingDiaryListContent(trainingDiaryList)
                 }
 
@@ -72,7 +75,7 @@ class PatientDetailsScreenRoute(
                     CreateGenericLoading()
                 }
 
-                ViewModelState.Default -> { _ ->
+                is ViewModelState.Default -> { _ ->
                     patientDetailsScreenModel.loadPatientDiary(patient = patient)
                 }
             }
@@ -107,20 +110,25 @@ fun CreatePatientScreen(
                 personName = patient.name,
                 personEmail = patient.email
             )
+            Text(
+                modifier = Modifier.padding(top = 16.dp),
+                fontSize = 24.sp,
+                text = stringResource(MR.strings.patient_diary)
+            )
             trainingDiaryListContent?.invoke(it)
         }
     }
 }
 
 @Composable
-fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<TrainingDiary>?) {
+fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<*>?) {
     trainingDiaryList?.takeIf { it.isNotEmpty() }?.let {
         LazyColumn(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
         ) {
             it.forEach { trainingDiary ->
                 item {
-                    createTrainingDiaryItem(trainingDiary = trainingDiary)
+                    createTrainingDiaryItem(trainingDiary = trainingDiary as TrainingDiary)
                 }
             }
         }
@@ -134,7 +142,7 @@ fun createTrainingDiaryItem(
 ) {
     Card(
         modifier = modifier.padding(top = 8.dp),
-        backgroundColor = colorResource(MR.colors.softPink)
+        backgroundColor = colorResource(MR.colors.colorPrimaryDark)
     ) {
         Row(
             modifier = modifier.padding(24.dp),
@@ -145,8 +153,12 @@ fun createTrainingDiaryItem(
                 Text(
                     text = stringResource(
                         MR.strings.date,
-                        trainingDiary.getFormattedDate()
-                    ), fontSize = 16.sp, color = Color.White
+                        trainingDiary.formattedDate
+                    ), style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
                 )
                 Text(
                     text = stringResource(
@@ -164,41 +176,3 @@ fun createTrainingDiaryItem(
         }
     }
 }
-
-/*
-* Text(
-                    text = stringResource(
-                        MR.strings.series_slow_easy,
-                        trainingDiary.seriesSlowEasy.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )
-                Text(
-                    text = stringResource(
-                        MR.strings.series_slow_medium,
-                        trainingDiary.seriesSlowMedium.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )
-                Text(
-                    text = stringResource(
-                        MR.strings.series_slow_hard,
-                        trainingDiary.seriesSlowHard.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )
-                Text(
-                    text = stringResource(
-                        MR.strings.series_fast_easy,
-                        trainingDiary.seriesFastEasy.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )
-                Text(
-                    text = stringResource(
-                        MR.strings.series_fast_medium,
-                        trainingDiary.seriesFastMedium.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )
-                Text(
-                    text = stringResource(
-                        MR.strings.series_fast_hard,
-                        trainingDiary.seriesFastHard.toString()
-                    ), fontSize = 16.sp, color = Color.White
-                )*/

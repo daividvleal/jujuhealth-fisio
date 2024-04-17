@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,10 +102,11 @@ fun CreateHomeScreen(
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(MR.strings.home_toolbar_name),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
                     )
                 },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 contentColor = Color.White
             )
         }
@@ -124,7 +126,7 @@ fun CreateHomeScreen(
             )
             user.mutablePatientList.takeIf { it.isNotEmpty() }?.let {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp)
                 ) {
                     user.mutablePatientList.forEach {
                         item {
@@ -147,7 +149,7 @@ fun createPatientItem(
     val navigator = LocalNavigator.currentOrThrow
     Card(
         modifier = modifier.padding(top = 8.dp),
-        backgroundColor = colorResource(MR.colors.softPink)
+        backgroundColor = MaterialTheme.colors.primaryVariant
     ) {
         Row(
             modifier = modifier.padding(24.dp)

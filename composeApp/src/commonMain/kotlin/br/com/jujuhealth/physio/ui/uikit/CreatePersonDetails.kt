@@ -55,10 +55,12 @@ fun generateInitials(name: String?): String {
     var result = ""
     val words = name?.split(" ")
     words?.let {
-        result = if (words.size >= 2) {
+        result = if (words.size >= 2 && words[0].isNotEmpty() && words[1].isNotEmpty()) {
             "${words[0][0]}${words[1][0]}"
-        } else {
+        } else if (words.size == 1 && words[0].isNotEmpty()) {
             "${words[0][0]}"
+        } else {
+            "!"
         }
     }
     return result

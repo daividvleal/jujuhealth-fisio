@@ -22,7 +22,6 @@ fun App() {
             secondaryVariant = colorResource(MR.colors.colorAccentDark)
         )
     ) {
-        MR.colors.colorPrimary
         Navigator(PatientDetailsScreenRoute())
     }
 }
