@@ -42,12 +42,7 @@ import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 class PatientDetailsScreenRoute(
-    private val patient: Patient = Patient(
-        uId = "T6mb3u5opQaCNdEv7n4KR78Fwmf1",
-        name = "Daivid Vasconcelos Leal",
-        providerId = "firebase",
-        email = "daivid.v.leal@gmail.com"
-    )
+    private val patient: Patient
 ) : Screen {
 
     @Composable
