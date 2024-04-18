@@ -2,7 +2,6 @@ package br.com.jujuhealth.physio.ui.home
 
 import CreateGenericError
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,14 +37,13 @@ import br.com.jujuhealth.physio.data.model.Patient
 import br.com.jujuhealth.physio.data.model.User
 import br.com.jujuhealth.physio.data.model.ViewModelState
 import br.com.jujuhealth.physio.ui.addPatient.AddPatientScreenRoute
-import br.com.jujuhealth.physio.ui.details.PatientDetailsScreenRoute
+import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 

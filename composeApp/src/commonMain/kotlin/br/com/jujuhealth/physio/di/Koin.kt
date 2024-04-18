@@ -8,7 +8,7 @@ import br.com.jujuhealth.physio.data.use_case.GetUserUseCase
 import br.com.jujuhealth.physio.data.use_case.LoadPatientDiaryUseCase
 import br.com.jujuhealth.physio.data.use_case.LoadPatientsUseCase
 import br.com.jujuhealth.physio.data.use_case.SignInUseCase
-import br.com.jujuhealth.physio.ui.details.PatientDetailsScreenModel
+import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenModel
 import br.com.jujuhealth.physio.ui.home.HomeScreenModel
 import br.com.jujuhealth.physio.ui.login.LoginScreenModel
 import dev.gitlive.firebase.Firebase

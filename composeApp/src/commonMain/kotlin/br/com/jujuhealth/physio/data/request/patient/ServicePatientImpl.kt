@@ -49,14 +49,15 @@ class ServicePatientImpl(
         try {
             database.collection(COLLECTION_TRAINING_DIARY).document(patientId)
                 .collection(COLLECTION_DIARY).get().runCatching {
-                val trainingDiaryList = arrayListOf<TrainingDiary>()
-                this.documents.forEach {
-                    val trainingDiary = it.data<TrainingDiary>()
-                            //trainingDiary.formattedDate = FieldPath().documentId.toString()
-                    trainingDiaryList.add(trainingDiary)
+                    val trainingDiaryList = arrayListOf<TrainingDiary>()
+                    this.documents.forEach {
+                        val trainingDiary = it.data<TrainingDiary>()
+                        trainingDiary.formattedDate = it.id
+                        trainingDiaryList.add(trainingDiary)
+                    }
+                    trainingDiaryList.reverse()
+                    success(trainingDiaryList)
                 }
-                success(trainingDiaryList)
-            }
         } catch (e: Exception) {
             e.printStackTrace()
             error.invoke()
@@ -73,16 +74,16 @@ class ServicePatientImpl(
         try {
             database.collection(COLLECTION_TRAINING_DIARY).document(patientId)
                 .collection(COLLECTION_DIARY).where {
-                FieldPath().documentId greaterThan startDate
-                FieldPath().documentId lessThan endDate
-            }.get().runCatching {
-                val trainingDiaryList = arrayListOf<TrainingDiary>()
-                this.documents.forEach {
-                    val trainingDiary = it.data<TrainingDiary>()
-                    trainingDiaryList.add(trainingDiary)
+                    FieldPath().documentId greaterThan startDate
+                    FieldPath().documentId lessThan endDate
+                }.get().runCatching {
+                    val trainingDiaryList = arrayListOf<TrainingDiary>()
+                    this.documents.forEach {
+                        val trainingDiary = it.data<TrainingDiary>()
+                        trainingDiaryList.add(trainingDiary)
+                    }
+                    success(trainingDiaryList)
                 }
-                success(trainingDiaryList)
-            }
         } catch (e: Exception) {
             e.printStackTrace()
             error.invoke()

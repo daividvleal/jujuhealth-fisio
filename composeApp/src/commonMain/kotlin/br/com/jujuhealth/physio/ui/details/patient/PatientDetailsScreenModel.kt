@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.ui.details
+package br.com.jujuhealth.physio.ui.details.patient
 
 import br.com.jujuhealth.physio.MR
 import br.com.jujuhealth.physio.data.model.ErrorModel
