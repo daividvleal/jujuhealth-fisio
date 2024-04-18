@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,14 +37,13 @@ import br.com.jujuhealth.physio.data.model.Patient
 import br.com.jujuhealth.physio.data.model.User
 import br.com.jujuhealth.physio.data.model.ViewModelState
 import br.com.jujuhealth.physio.ui.addPatient.AddPatientScreenRoute
-import br.com.jujuhealth.physio.ui.details.PatientDetailsScreenRoute
+import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -100,10 +100,11 @@ fun CreateHomeScreen(
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(MR.strings.home_toolbar_name),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
                     )
                 },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 contentColor = Color.White
             )
         }
@@ -116,10 +117,14 @@ fun CreateHomeScreen(
                 personName = user.name,
                 personEmail = user.email
             )
-            Text(modifier = Modifier.padding(top = 16.dp), fontSize = 24.sp, text = stringResource(MR.strings.patients))
+            Text(
+                modifier = Modifier.padding(top = 16.dp),
+                fontSize = 24.sp,
+                text = stringResource(MR.strings.patients)
+            )
             user.mutablePatientList.takeIf { it.isNotEmpty() }?.let {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp)
                 ) {
                     user.mutablePatientList.forEach {
                         item {
@@ -142,11 +147,13 @@ fun createPatientItem(
     val navigator = LocalNavigator.currentOrThrow
     Card(
         modifier = modifier.padding(top = 8.dp),
-        backgroundColor = colorResource(MR.colors.colorAccentDark)
+        backgroundColor = MaterialTheme.colors.primaryVariant
     ) {
         Row(
             modifier = modifier.padding(24.dp)
-                .clickable { navigator.push(PatientDetailsScreenRoute) },
+                .clickable {
+                    navigator.push(PatientDetailsScreenRoute(patient))
+                },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -155,7 +162,9 @@ fun createPatientItem(
                 Text(text = patient.email.orEmpty(), fontSize = 16.sp, color = Color.White)
             }
             Image(
-                modifier = Modifier.clickable { navigator.push(PatientDetailsScreenRoute) },
+                modifier = Modifier.clickable {
+                    navigator.push(PatientDetailsScreenRoute(patient))
+                },
                 painter = painterResource(MR.images.ic_edit),
                 contentDescription = "Edit Patient Details"
             )

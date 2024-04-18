@@ -12,10 +12,25 @@
     <!-- Home Screen -->
     <string name="home_toolbar_name">Home</string>
     <string name="patients">Pacientes</string>
+    <string name="patient_diary">Diário do Paciente</string>
     <!-- End Home Screen -->
 
-    <!-- Home Screen -->
+    <!-- Patient Screen -->
+    <string name="patient_toolbar_name">Paciente</string>
+
+    <string name="series_slow_easy">Treino Lento - Nível fácil: %s</string>
+    <string name="series_slow_medium">Treino Lento - Nível médio: %s</string>
+    <string name="series_slow_hard">Treino Lento - Nível difícil: %s</string>
+    <string name="series_fast_easy">Treino Rápido - Nível fácil: %s</string>
+    <string name="series_fast_medium">Treino Rápido - Nível médio: %s</string>
+    <string name="series_fast_hard">Treino Rápido - Nível difícil: %s</string>
+    <string name="date">Data: %s</string>
+    <string name="total_series_amount">Total de exercícios: %s</string>
+    <string name="total_loss_amount">Total de Incontinências: %s</string>
+    <!-- End Patient Screen -->
+
+    <!-- General Screen -->
     <string name="general_error_message">Ops, aconteceu um problema por aqui, por favor tente novamente mais tarde!</string>
     <string name="general_empty_message">Você ainda não tem pacientes adicionados!</string>
-    <!-- End Home Screen -->
+    <!-- End General Screen -->
 </resources>

@@ -17,4 +17,11 @@ interface ServicePatientContract {
         error: () -> Unit
     )
 
+    suspend fun loadPatientDiaryRange(
+        startDate: String, endDate: String,
+        patientId: String,
+        success: (ArrayList<TrainingDiary>) -> Unit,
+        error: () -> Unit
+    )
+
 }
