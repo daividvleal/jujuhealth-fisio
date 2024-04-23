@@ -14,6 +14,7 @@ class LoadPatientDiaryUseCase(
             patientId = patientId.orEmpty(),
             success = { patients ->
                 patients.takeIf { patients.isNotEmpty() }?.let {
+                    it.reverse()
                     success(it)
                 } ?: run {
                     error.invoke(MR.strings.general_empty_message)
