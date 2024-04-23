@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TrainingDiary(
     var date: Timestamp = Timestamp.now(),
-    var formattedDate: String,
+    var formattedDate: String = "00-00-00",
     var seriesSlowEasy: Int = 0,
     var seriesSlowMedium: Int = 0,
     var seriesSlowHard: Int = 0,

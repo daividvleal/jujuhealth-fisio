@@ -9,6 +9,7 @@ import dev.gitlive.firebase.firestore.FieldPath
 import dev.gitlive.firebase.firestore.FilterBuilder
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.where
+import dev.icerock.moko.resources.StringResource
 
 class ServicePatientImpl(
     private val database: FirebaseFirestore
@@ -55,7 +56,6 @@ class ServicePatientImpl(
                         trainingDiary.formattedDate = it.id
                         trainingDiaryList.add(trainingDiary)
                     }
-                    trainingDiaryList.reverse()
                     success(trainingDiaryList)
                 }
         } catch (e: Exception) {
@@ -80,6 +80,7 @@ class ServicePatientImpl(
                     val trainingDiaryList = arrayListOf<TrainingDiary>()
                     this.documents.forEach {
                         val trainingDiary = it.data<TrainingDiary>()
+                        trainingDiary.formattedDate = it.id
                         trainingDiaryList.add(trainingDiary)
                     }
                     success(trainingDiaryList)
@@ -90,5 +91,22 @@ class ServicePatientImpl(
         }
     }
 
+    override suspend fun updatePatientDiary(
+        patientId: String,
+        trainingDiary: TrainingDiary,
+        success: (TrainingDiary) -> Unit, error: () -> Unit
+    ) {
+        try {
+            database.collection(COLLECTION_TRAINING_DIARY).document(patientId)
+                .collection(COLLECTION_DIARY).document(trainingDiary.formattedDate).set(
+                    data = trainingDiary
+                ).runCatching {
+                    success(trainingDiary)
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            error.invoke()
+        }
+    }
 
 }

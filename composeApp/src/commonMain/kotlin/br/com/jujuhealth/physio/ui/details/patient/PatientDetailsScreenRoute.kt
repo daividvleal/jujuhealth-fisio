@@ -17,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -55,7 +56,7 @@ class PatientDetailsScreenRoute(
                 is ViewModelState.Success -> { _ ->
                     val trainingDiaryList =
                         (patientDiaryListStateFlow as ViewModelState.Success).data as ArrayList<*>
-                    createTrainingDiaryListContent(trainingDiaryList)
+                    createTrainingDiaryListContent(trainingDiaryList, patient)
                 }
 
                 is ViewModelState.Error -> { _ ->
@@ -73,7 +74,7 @@ class PatientDetailsScreenRoute(
                 }
             }
 
-        CreatePatientScreen(
+        CreatePatientDetailsScreen(
             patient = patient,
             trainingDiaryListContent = trainingDiaryListContent
         )
@@ -82,7 +83,7 @@ class PatientDetailsScreenRoute(
 
 
 @Composable
-fun CreatePatientScreen(
+fun CreatePatientDetailsScreen(
     patient: Patient,
     trainingDiaryListContent: @Composable ((PaddingValues) -> Unit)? = null
 ) {
@@ -91,7 +92,7 @@ fun CreatePatientScreen(
     Scaffold(
         topBar = {
             CreateTopBar(stringResource(MR.strings.patient_toolbar_name)) {
-                navigator?.popUntilRoot()
+                navigator?.pop()
             }
         }
     ) {
@@ -114,14 +115,14 @@ fun CreatePatientScreen(
 }
 
 @Composable
-fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<*>?) {
+fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<*>?, patient: Patient) {
     trainingDiaryList?.takeIf { it.isNotEmpty() }?.let {
         LazyColumn(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
         ) {
             it.forEach { trainingDiary ->
                 item {
-                    createTrainingDiaryItem(trainingDiary = trainingDiary as TrainingDiary)
+                    createTrainingDiaryItem(trainingDiary = trainingDiary as TrainingDiary, patient = patient)
                 }
             }
         }
@@ -131,7 +132,8 @@ fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<*>?) {
 @Composable
 fun createTrainingDiaryItem(
     modifier: Modifier = Modifier.fillMaxWidth(),
-    trainingDiary: TrainingDiary
+    trainingDiary: TrainingDiary,
+    patient: Patient
 ) {
     val navigator = LocalNavigator.currentOrThrow
     Card(
@@ -169,7 +171,7 @@ fun createTrainingDiaryItem(
             }
             Image(
                 modifier = Modifier.clickable {
-                    navigator.push(TrainingDetailsScreenRoute(trainingDiary))
+                    navigator.push(TrainingDetailsScreenRoute(trainingDiary = trainingDiary, patient = patient))
                 },
                 painter = painterResource(MR.images.ic_edit),
                 contentDescription = "Edit Patient Details"

@@ -7,7 +7,7 @@ import dev.icerock.moko.resources.StringResource
 
 class GetUserUseCase(private val serviceAuth: ServiceAuthContract) {
 
-    suspend fun run( success: (User) -> Unit, error: (errorMessage: StringResource?) -> Unit) {
+    suspend fun run(success: (User) -> Unit, error: (errorMessage: StringResource?) -> Unit) {
         serviceAuth.getUser({
             it?.let { success(it) } ?: run { error.invoke(MR.strings.general_error_message) }
         }, { error.invoke(MR.strings.general_error_message) })
