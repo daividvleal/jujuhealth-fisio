@@ -64,7 +64,7 @@ class TrainingDetailsScreenRoute(
             false
         }
         var loading = remember {
-            true
+            false
         }
 
         val trainingDetailsScreenModel: TrainingDetailsScreenModel = getScreenModel()
