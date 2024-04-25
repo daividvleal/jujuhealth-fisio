@@ -5,7 +5,7 @@
     <string name="welcome_message">Bem vindo ao Juju para Fisioterapeutas!\nAqui você consegue fazer o acompanhamento dos seus pacientes.</string>
     <string name="login">Login</string>
     <string name="email">E-mail:</string>
-    <string name="password">Password:</string>
+    <string name="password">Senha:</string>
     <string name="email_password_error_message">Verifique seu e-mail e senha e tente novamente por favor!</string>
     <!-- End Login Screen -->
 
@@ -35,6 +35,13 @@
     <string name="feedback_hint">Digite aqui um feedback para o exercício:</string>
     <string name="feedback_hint">Digite aqui um feedback para o exercício:</string>
     <!-- End Exercise Screen -->
+
+    <!-- Exercise Screen -->
+    <string name="name">Nome:</string>
+    <string name="exercise_toolbar_name">Adicionar Paciente</string>
+    <string name="confirm_pwd">Repita a senha:</string>
+    <string name="add">Adicionar</string>
+    <!-- Exercise Screen -->
 
     <!-- General Screen -->
     <string name="general_error_message">Ops, aconteceu um problema por aqui, por favor tente novamente mais tarde!</string>

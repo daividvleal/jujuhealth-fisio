@@ -36,7 +36,7 @@ import br.com.jujuhealth.physio.data.model.ErrorModel
 import br.com.jujuhealth.physio.data.model.Patient
 import br.com.jujuhealth.physio.data.model.User
 import br.com.jujuhealth.physio.data.model.ViewModelState
-import br.com.jujuhealth.physio.ui.addPatient.AddPatientScreenRoute
+import br.com.jujuhealth.physio.ui.add_patient.AddPatientScreenRoute
 import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails

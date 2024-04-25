@@ -7,5 +7,5 @@ data class Patient(
     val name: String? = "",
     var uId: String? = "",
     val email: String? = "",
-    val providerId: String? = "",
+    val providerId: String? = ""
 )

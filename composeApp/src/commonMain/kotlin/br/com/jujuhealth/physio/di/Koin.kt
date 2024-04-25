@@ -4,11 +4,13 @@ import br.com.jujuhealth.physio.data.request.auth.ServiceAuthImpl
 import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientImpl
+import br.com.jujuhealth.physio.data.use_case.AddPatientUseCase
 import br.com.jujuhealth.physio.data.use_case.GetUserUseCase
 import br.com.jujuhealth.physio.data.use_case.LoadPatientDiaryUseCase
 import br.com.jujuhealth.physio.data.use_case.LoadPatientsUseCase
 import br.com.jujuhealth.physio.data.use_case.PutPatientDiaryFeedbackUseCase
 import br.com.jujuhealth.physio.data.use_case.SignInUseCase
+import br.com.jujuhealth.physio.ui.add_patient.AddPatientScreenModel
 import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenModel
 import br.com.jujuhealth.physio.ui.details.training.TrainingDetailsScreenModel
 import br.com.jujuhealth.physio.ui.home.HomeScreenModel
@@ -46,6 +48,7 @@ val useCaseModule = module {
     factory { LoadPatientsUseCase(get()) }
     factory { LoadPatientDiaryUseCase(get()) }
     factory { PutPatientDiaryFeedbackUseCase(get()) }
+    factory { AddPatientUseCase(get()) }
 }
 
 val screenModelsModule = module {
@@ -53,6 +56,7 @@ val screenModelsModule = module {
     factory { HomeScreenModel(get(), get()) }
     factory { PatientDetailsScreenModel(get()) }
     factory { TrainingDetailsScreenModel(get()) }
+    factory { AddPatientScreenModel(get()) }
 }
 
 fun initKoin() {
