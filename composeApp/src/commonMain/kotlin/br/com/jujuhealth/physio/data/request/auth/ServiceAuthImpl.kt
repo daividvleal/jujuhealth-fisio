@@ -1,9 +1,13 @@
 package br.com.jujuhealth.physio.data.request.auth
 
+import br.com.jujuhealth.physio.data.model.Patient
 import br.com.jujuhealth.physio.data.model.User
 import br.com.jujuhealth.physio.data.request.COLLECTION_PHYSIOS
+import br.com.jujuhealth.physio.data.request.COLLECTION_USERS
 import dev.gitlive.firebase.auth.FirebaseAuth
+import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.firestore.FirebaseFirestore
+import dev.gitlive.firebase.firestore.Timestamp
 
 class ServiceAuthImpl(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
     ServiceAuthContract {
@@ -69,6 +73,44 @@ class ServiceAuthImpl(private val auth: FirebaseAuth, private val database: Fire
                 e.printStackTrace()
                 error.invoke()
             }
+        }
+    }
+
+    override fun checkUserLogged(
+        success: (FirebaseUser?) -> Unit,
+        error: () -> Unit
+    ) {
+        auth.currentUser?.let {
+            success(it)
+        } ?: run {
+            error()
+        }
+    }
+
+    override suspend fun signUp(
+        name: String,
+        email: String,
+        password: String,
+        success: (Patient) -> Unit,
+        error: () -> Unit
+    ) {
+        try {
+            auth.createUserWithEmailAndPassword(email, password).runCatching {
+                val id = this.user?.uid ?: run { email }
+                val patient = Patient(
+                    name = name,
+                    email = email,
+                    providerId = auth.currentUser?.providerId,
+                    uId = auth.currentUser?.uid
+                )
+                database.collection(COLLECTION_USERS).document(id).set(
+                    patient
+                ).runCatching {
+                    success(patient)
+                }
+            }
+        } catch (e: Exception) {
+            error.invoke()
         }
     }
 

@@ -111,8 +111,13 @@ fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
         TextField(
             text = pwd,
             onValueChange = { pwd = it },
-            hint = stringResource(MR.strings.password),
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
+            hint = stringResource(MR.strings.password)
+        )
+
+        TextField(
+            text = confirmPwd,
+            onValueChange = { confirmPwd = it },
+            hint = stringResource(MR.strings.confirm_pwd)
         )
 
         Button(
@@ -126,27 +131,7 @@ fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
                     email = email
                 ), pwd, confirmPwd)
             }) {
-            Text(stringResource(MR.strings.password))
+            Text(stringResource(MR.strings.add))
         }
-
-        AlertDialog(
-            onDismissRequest = {},
-            title = { Text("Confirmation") },
-            text = { Text("Are you sure you want to proceed?") },
-            confirmButton = {
-                Button(onClick = {
-
-                }) {
-                    Text("Confirm")
-                }
-            },
-            dismissButton = {
-                Button(onClick = {
-
-                }) {
-                    Text("Cancel")
-                }
-            }
-        )
     }
 }

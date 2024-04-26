@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.jujuhealth.physio.ui.add_patient.CreateAddPatientScreenRoute
+import br.com.jujuhealth.physio.ui.login.LoginScreenRoute
 
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
@@ -11,4 +12,5 @@ import br.com.jujuhealth.physio.ui.add_patient.CreateAddPatientScreenRoute
 )
 @Composable
 fun AppAndroidPreview() {
+    LoginScreenRoute
 }
