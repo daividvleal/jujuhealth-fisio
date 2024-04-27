@@ -1,7 +1,9 @@
 package br.com.jujuhealth.physio.ui.home
 
-import CreateGenericError
+import CreateMessage
+import MessageType
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,10 +22,15 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,18 +39,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.User
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.User
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.add_patient.AddPatientScreenRoute
 import br.com.jujuhealth.physio.ui.details.patient.PatientDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails
+import br.com.jujuhealth.physio.ui.uikit.CreateTopBar
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -56,36 +66,42 @@ data object HomeScreenRoute : Screen {
         when (userStateFlow) {
             is ViewModelState.Success -> {
                 val user = (userStateFlow as ViewModelState.Success).data as User
-                CreateHomeScreen(user = user)
+                CreateHomeScreen(user = user, homeScreenModel = homeScreenModel)
             }
 
             is ViewModelState.Error -> {
-                val errorModel = (userStateFlow as ViewModelState.Error).error as ErrorModel
-                CreateGenericError(errorModel)
+                val messageModel = (userStateFlow as ViewModelState.Error).error as MessageModel
+                CreateMessage(messageModel, MessageType.ERROR)
             }
 
             is ViewModelState.Loading -> {
-                CreateGenericLoading()
+                CreateGenericLoading(colorResource(MR.colors.colorPrimaryDark))
             }
 
-            ViewModelState.Default -> {
-                homeScreenModel.getUser()
-            }
+            ViewModelState.Default -> Unit
         }
+
+        LifecycleEffect(onStarted =  {
+            homeScreenModel.getUser()
+        })
     }
 }
 
 @Composable
 fun CreateHomeScreen(
-    user: User
+    user: User,
+    homeScreenModel: HomeScreenModel,
 ) {
     val navigator = LocalNavigator.currentOrThrow
-
     Scaffold(
+        backgroundColor = colorResource(MR.colors.colorPrimary),
         floatingActionButton = {
             FloatingActionButton(
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 onClick = {
-                    navigator.push(AddPatientScreenRoute)
+                    navigator.push(AddPatientScreenRoute {
+                        homeScreenModel.loadPatients(user)
+                    })
                 },
                 modifier = Modifier.padding(16.dp)
                     .size(56.dp)
@@ -95,18 +111,11 @@ fun CreateHomeScreen(
             }
         },
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(MR.strings.home_toolbar_name),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                backgroundColor = MaterialTheme.colors.primaryVariant,
-                contentColor = Color.White
-            )
+            CreateTopBar(
+                title = stringResource(MR.strings.home_toolbar_name),
+                icon =  Icons.AutoMirrored.Filled.List) {
+                navigator.pop()
+            }
         }
     ) {
         Column(
@@ -122,20 +131,42 @@ fun CreateHomeScreen(
                 fontSize = 24.sp,
                 text = stringResource(MR.strings.patients)
             )
-            user.mutablePatientList.takeIf { it.isNotEmpty() }?.let {
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp)
-                ) {
-                    user.mutablePatientList.forEach {
-                        item {
-                            createPatientItem(patient = it)
+            CreatePatientsList(user, homeScreenModel)
+        }
+    }
+}
+
+@Composable
+fun CreatePatientsList(user: User, homeScreenModel: HomeScreenModel) {
+    var patientList by remember { mutableStateOf(Any()) }
+    val patientsState by homeScreenModel.patientsState.collectAsState()
+
+    when (patientsState) {
+        is ViewModelState.Success<*> -> {
+            (patientsState as? ViewModelState.Success)?.data?.let {
+                patientList = it
+            }
+            (patientList as ArrayList<*>).takeIf { it.isNotEmpty() }
+                ?.let { it ->
+                    LazyColumn(
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp)
+                    ) {
+                        it.forEach { patient ->
+                            item {
+                                createPatientItem(patient = patient as Patient)
+                            }
                         }
                     }
                 }
-            } ?: run {
-                CreateGenericError(ErrorModel(MR.strings.general_empty_message))
-            }
         }
+
+        is ViewModelState.Default -> homeScreenModel.loadPatients(user)
+        is ViewModelState.Error -> CreateMessage(
+            MessageModel(MR.strings.general_empty_message),
+            MessageType.ERROR
+        )
+
+        is ViewModelState.Loading -> CreateGenericLoading(colorResource(MR.colors.colorPrimaryDark))
     }
 }
 

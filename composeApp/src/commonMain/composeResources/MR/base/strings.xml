@@ -33,19 +33,22 @@
     <string name="exercise_toolbar_name">Exercício</string>
     <string name="add_feedback">Adicionar Feedback</string>
     <string name="feedback_hint">Digite aqui um feedback para o exercício:</string>
-    <string name="feedback_hint">Digite aqui um feedback para o exercício:</string>
     <!-- End Exercise Screen -->
 
     <!-- Exercise Screen -->
     <string name="name">Nome:</string>
-    <string name="exercise_toolbar_name">Adicionar Paciente</string>
+    <string name="exercise_toolbar_name">Detalhes do Exxercício</string>
     <string name="confirm_pwd">Repita a senha:</string>
+    <string name="confirm_user_pwd">Confirme sua senha para cadastrar o paciente:</string>
     <string name="add">Adicionar</string>
-    <string name="invalid_fields_error_message">Adicionar</string>
+    <string name="invalid_fields_error_message">Ops, parece que algum dos campos está inválido, verifique os campos e tente novamente.</string>
+    <string name="invalid_pwd">Verifique sua senha e tente novamente.</string>
+    <string name="add_patient_info">Insira as informações para criar a conta do Paciente.</string>
     <!-- Exercise Screen -->
 
     <!-- General Screen -->
     <string name="general_error_message">Ops, aconteceu um problema por aqui, por favor tente novamente mais tarde!</string>
     <string name="general_empty_message">Você ainda não tem pacientes adicionados!</string>
+    <string name="general_training_empty_message">O paciente ainda não tem treinos adicionados!</string>
     <!-- End General Screen -->
 </resources>

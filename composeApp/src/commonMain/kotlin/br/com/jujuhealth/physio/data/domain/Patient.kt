@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.data.model
+package br.com.jujuhealth.physio.data.domain
 
 import kotlinx.serialization.Serializable
 
@@ -7,5 +7,5 @@ data class Patient(
     val name: String? = "",
     var uId: String? = "",
     val email: String? = "",
-    val providerId: String? = ""
+    var providerId: String? = ""
 )

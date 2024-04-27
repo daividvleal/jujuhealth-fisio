@@ -1,8 +1,6 @@
-package br.com.jujuhealth.physio.data.model
+package br.com.jujuhealth.physio.data.domain
 
-import androidx.compose.ui.hapticfeedback.HapticFeedback
 import dev.gitlive.firebase.firestore.Timestamp
-import io.ktor.util.date.GMTDate
 import kotlinx.serialization.Serializable
 
 @Serializable

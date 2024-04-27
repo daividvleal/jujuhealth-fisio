@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import br.com.jujuhealth.physio.data.model.ErrorModel
+import br.com.jujuhealth.physio.data.domain.MessageModel
 
 @Composable
-fun CreateGenericError(errorModel: ErrorModel) {
+fun CreateMessage(messageModel: MessageModel, messageType: MessageType) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceAround
@@ -22,7 +22,13 @@ fun CreateGenericError(errorModel: ErrorModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Text(text = errorModel.getErrorMessage())
+            Text(text = messageModel.getMessage())
         }
     }
+}
+
+enum class MessageType {
+    ERROR,
+    ALERT,
+    SUCCESS
 }

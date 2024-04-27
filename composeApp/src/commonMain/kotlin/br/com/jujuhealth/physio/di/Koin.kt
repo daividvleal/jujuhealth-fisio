@@ -1,7 +1,7 @@
 package br.com.jujuhealth.physio.di
 
-import br.com.jujuhealth.physio.data.request.auth.ServiceAuthImpl
 import br.com.jujuhealth.physio.data.request.auth.ServiceAuthContract
+import br.com.jujuhealth.physio.data.request.auth.ServiceAuthImpl
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientImpl
 import br.com.jujuhealth.physio.data.use_case.AddPatientUseCase

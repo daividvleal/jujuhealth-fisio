@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.data.model
+package br.com.jujuhealth.physio.data.domain
 
 import kotlinx.serialization.Serializable
 

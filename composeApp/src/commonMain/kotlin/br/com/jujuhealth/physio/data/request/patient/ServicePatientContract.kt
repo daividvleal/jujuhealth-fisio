@@ -1,8 +1,7 @@
 package br.com.jujuhealth.physio.data.request.patient
 
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
-import dev.icerock.moko.resources.StringResource
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
 
 interface ServicePatientContract {
 

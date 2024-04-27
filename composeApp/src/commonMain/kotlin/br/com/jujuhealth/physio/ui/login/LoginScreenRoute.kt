@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -25,8 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.home.HomeScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.TextField
 import cafe.adriel.voyager.core.screen.Screen
@@ -51,7 +52,7 @@ data object LoginScreenRoute : Screen {
             is ViewModelState.Error -> {
                 buttonLoading = false
                 errorMessage =
-                    ((loginStateFlow as ViewModelState.Error<*>).error as? ErrorModel)?.getErrorMessage()
+                    ((loginStateFlow as ViewModelState.Error<*>).error as? MessageModel)?.getMessage()
                         .orEmpty()
                 LoginScree(
                     loginScreenModel = loginScreenModel,
@@ -143,6 +144,9 @@ fun LoginScree(
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(MR.colors.colorPrimaryDark),
+                  ),
                     onClick = {
                         loginScreenModel.singIn(
                             email = email,

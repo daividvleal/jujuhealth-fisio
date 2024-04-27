@@ -11,11 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +31,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.uikit.CreateTopBar
 import br.com.jujuhealth.physio.ui.uikit.TextField
 import cafe.adriel.voyager.core.screen.Screen
@@ -42,24 +41,55 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
-import kotlinx.coroutines.flow.StateFlow
 
-data object AddPatientScreenRoute : Screen {
+data class AddPatientScreenRoute(
+    private val onAddPatient: () -> Unit
+) : Screen {
     @Composable
     override fun Content() {
         val addPatientScreenModel: AddPatientScreenModel = getScreenModel()
-        CreateAddPatientScreenRoute(addPatientScreenModel)
+        CreateAddPatientScreenRoute(addPatientScreenModel, onAddPatient)
     }
 }
 
 @Composable
 fun CreateAddPatientScreenRoute(
-    addPatientScreenModel: AddPatientScreenModel
+    addPatientScreenModel: AddPatientScreenModel,
+    onAddPatient: () -> Unit
 ) {
-
     val navigator = LocalNavigator.current
+    var buttonLoading by rememberSaveable { mutableStateOf(false) }
+    var error by rememberSaveable { mutableStateOf(false) }
+    var messageModel by rememberSaveable { mutableStateOf<MessageModel?>(null) }
+    var success by rememberSaveable { mutableStateOf(false) }
+
+    val addModelState by addPatientScreenModel.addModelState.collectAsState()
+    when (addModelState) {
+        is ViewModelState.Success -> {
+            buttonLoading = false
+            error = false
+            success = true
+            onAddPatient.invoke()
+        }
+
+        is ViewModelState.Error -> {
+            buttonLoading = false
+            success = false
+            error = true
+            messageModel = ((addModelState as ViewModelState.Error<*>).error as? MessageModel)
+        }
+
+        is ViewModelState.Loading -> {
+            success = false
+            error = false
+            buttonLoading = true
+        }
+
+        else -> Unit
+    }
 
     Scaffold(
+        backgroundColor = colorResource(MR.colors.colorPrimary),
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CreateTopBar(
@@ -69,7 +99,7 @@ fun CreateAddPatientScreenRoute(
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxHeight().background(colorResource(MR.colors.colorPrimary)),
+            modifier = Modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -80,7 +110,7 @@ fun CreateAddPatientScreenRoute(
                 color = Color.White,
                 text = stringResource(MR.strings.app_name)
             )
-            CreateForm(addPatientScreenModel)
+            CreateForm(addPatientScreenModel, buttonLoading, messageModel, error, success)
             Text(
                 modifier = Modifier.fillMaxWidth()
                     .padding(top = 16.dp),
@@ -94,34 +124,27 @@ fun CreateAddPatientScreenRoute(
 }
 
 @Composable
-fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
+fun CreateForm(
+    addPatientScreenModel: AddPatientScreenModel,
+    buttonLoading: Boolean,
+    feedBackMessage: MessageModel?,
+    error: Boolean = false,
+    success: Boolean = false
+) {
 
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var pwd by remember { mutableStateOf("") }
+    var userPwd by remember { mutableStateOf("") }
     var confirmPwd by remember { mutableStateOf("") }
-    var errorMessage by rememberSaveable { mutableStateOf("") }
-    var buttonLoading by rememberSaveable { mutableStateOf(false) }
 
-    val addModelState by addPatientScreenModel.addModelState.collectAsState()
-    when (addModelState) {
-        is ViewModelState.Success -> {
-            buttonLoading = false
-            errorMessage = String()
+    when (success) {
+        true -> {
+            name = ""
+            email = ""
+            pwd = ""
+            confirmPwd = ""
         }
-
-        is ViewModelState.Error -> {
-            buttonLoading = false
-            errorMessage =
-                ((addModelState as ViewModelState.Error<*>).error as? ErrorModel)?.getErrorMessage()
-                    .orEmpty()
-        }
-
-        is ViewModelState.Loading -> {
-            buttonLoading = true
-            errorMessage = String()
-        }
-
         else -> Unit
     }
 
@@ -131,6 +154,11 @@ fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+            color = Color.White,
+            text = stringResource(MR.strings.add_patient_info)
+        )
 
         TextField(
             text = name,
@@ -157,12 +185,20 @@ fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
             hint = stringResource(MR.strings.confirm_pwd)
         )
 
-        Text(
-            modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
-            color = MaterialTheme.colors.secondaryVariant,
-            text = errorMessage
-        )
+        if (error || success) {
+            Text(
+                modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+                color = Color.White,
+                text = feedBackMessage?.getMessage().toString()
+            )
+        }
 
+        Divider()
+        TextField(
+            text = userPwd,
+            onValueChange = { userPwd = it },
+            hint = stringResource(MR.strings.confirm_user_pwd)
+        )
 
         Button(
             colors = ButtonDefaults.buttonColors(
@@ -170,14 +206,19 @@ fun CreateForm(addPatientScreenModel: AddPatientScreenModel) {
                 contentColor = Color.White
             ),
             onClick = {
-                addPatientScreenModel.addPatient(Patient(
-                    name = name,
-                    email = email
-                ), pwd, confirmPwd)
+                addPatientScreenModel.addPatient(
+                    patient = Patient(
+                        name = name,
+                        email = email
+                    ), pwd = pwd, userPwd = userPwd, confirmPwd = confirmPwd
+                )
             }) {
             Box(contentAlignment = Alignment.Center) {
                 when (buttonLoading) {
-                    true -> CircularProgressIndicator(modifier = Modifier.height(16.dp).width(16.dp))
+                    true -> CircularProgressIndicator(
+                        modifier = Modifier.height(16.dp).width(16.dp)
+                    )
+
                     false -> Text(stringResource(MR.strings.add))
                 }
             }

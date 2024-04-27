@@ -1,15 +1,13 @@
 package br.com.jujuhealth.physio.data.request.patient
 
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
 import br.com.jujuhealth.physio.data.request.COLLECTION_DIARY
 import br.com.jujuhealth.physio.data.request.COLLECTION_TRAINING_DIARY
 import br.com.jujuhealth.physio.data.request.COLLECTION_USERS
 import dev.gitlive.firebase.firestore.FieldPath
-import dev.gitlive.firebase.firestore.FilterBuilder
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.where
-import dev.icerock.moko.resources.StringResource
 
 class ServicePatientImpl(
     private val database: FirebaseFirestore

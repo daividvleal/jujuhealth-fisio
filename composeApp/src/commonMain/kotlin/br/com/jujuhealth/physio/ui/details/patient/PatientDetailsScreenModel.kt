@@ -1,10 +1,10 @@
 package br.com.jujuhealth.physio.ui.details.patient
 
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.data.use_case.LoadPatientDiaryUseCase
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -24,7 +24,7 @@ class PatientDetailsScreenModel(
         _patientDiaryList
 
     fun loadPatientDiary(patient: Patient) {
-        _patientDiaryList.update { ViewModelState.Loading(true) }
+        _patientDiaryList.update { ViewModelState.Loading }
         screenModelScope.launch {
             loadPatientDiaryUseCase.run(
                 patientId = patient.uId,
@@ -43,9 +43,9 @@ class PatientDetailsScreenModel(
 
     private fun handlePatientDiaryListSuccessError(stringRes: StringResource? = null) {
         stringRes?.let { res ->
-            _patientDiaryList.update { ViewModelState.Error(ErrorModel(res)) }
+            _patientDiaryList.update { ViewModelState.Error(MessageModel(res)) }
         } ?: run {
-            _patientDiaryList.update { ViewModelState.Error(ErrorModel(MR.strings.general_error_message)) }
+            _patientDiaryList.update { ViewModelState.Error(MessageModel(MR.strings.general_error_message)) }
         }
     }
 
