@@ -10,10 +10,13 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import br.com.jujuhealth.physio.MR
+import dev.icerock.moko.resources.compose.colorResource
 
 @Composable
-fun CreateGenericLoading() {
+fun CreateGenericLoading(color: Color = colorResource(MR.colors.colorPrimary)) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceAround
@@ -24,7 +27,7 @@ fun CreateGenericLoading() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = color)
         }
     }
 

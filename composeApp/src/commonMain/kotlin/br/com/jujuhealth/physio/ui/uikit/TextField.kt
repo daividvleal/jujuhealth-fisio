@@ -1,6 +1,7 @@
 package br.com.jujuhealth.physio.ui.uikit
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -8,6 +9,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @Composable
 fun TextField(
@@ -19,6 +21,7 @@ fun TextField(
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = text,
+        singleLine = true,
         onValueChange = onValueChange,
         placeholder = {
             Text(hint, color = Color.White)
