@@ -1,7 +1,7 @@
 package br.com.jujuhealth.physio.data.use_case
 
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.Patient
+import br.com.jujuhealth.physio.data.domain.Patient
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
 import dev.icerock.moko.resources.StringResource
 
@@ -13,6 +13,7 @@ class LoadPatientsUseCase(
             patientIds = patientIds,
             success = { patients ->
                 patients.takeIf { patients.isNotEmpty() }?.let {
+                    it.reverse()
                     success(it)
                 } ?: run {
                     error.invoke(MR.strings.general_empty_message)

@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,11 +22,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.home.HomeScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.TextField
 import cafe.adriel.voyager.core.screen.Screen
@@ -48,7 +52,7 @@ data object LoginScreenRoute : Screen {
             is ViewModelState.Error -> {
                 buttonLoading = false
                 errorMessage =
-                    ((loginStateFlow as ViewModelState.Error<*>).error as? ErrorModel)?.getErrorMessage()
+                    ((loginStateFlow as ViewModelState.Error<*>).error as? MessageModel)?.getMessage()
                         .orEmpty()
                 LoginScree(
                     loginScreenModel = loginScreenModel,
@@ -68,7 +72,7 @@ data object LoginScreenRoute : Screen {
             }
 
             is ViewModelState.Success -> {
-                buttonLoading = true
+                buttonLoading = false
                 errorMessage = String()
                 navigator.popUntilRoot()
                 navigator.push(HomeScreenRoute)
@@ -136,9 +140,13 @@ fun LoginScree(
                     hint = stringResource(MR.strings.password),
                     onValueChange = {
                         password = it
-                    }
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(MR.colors.colorPrimaryDark),
+                  ),
                     onClick = {
                         loginScreenModel.singIn(
                             email = email,
@@ -151,8 +159,8 @@ fun LoginScree(
                     CircularProgressIndicator()
                 }
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+                    color = MaterialTheme.colors.secondaryVariant,
                     text = errorMessage
                 )
             }

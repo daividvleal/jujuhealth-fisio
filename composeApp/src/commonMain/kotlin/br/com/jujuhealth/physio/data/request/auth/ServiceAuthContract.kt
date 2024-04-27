@@ -1,6 +1,7 @@
 package br.com.jujuhealth.physio.data.request.auth
 
-import br.com.jujuhealth.physio.data.model.User
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.User
 
 interface ServiceAuthContract {
 
@@ -13,13 +14,21 @@ interface ServiceAuthContract {
 
     suspend fun signOut(error: () -> Unit)
 
-    suspend fun updatePassword(
-        pwdActual: String,
-        pwd: String,
-        success: () -> Unit,
+    suspend fun updateUser(
+        user: User,
+        success: (user: User) -> Unit,
         error: () -> Unit
     )
 
     suspend fun getUser(success: (User?) -> Unit, error: () -> Unit)
+
+    suspend fun createPatient(
+        name: String,
+        email: String,
+        password: String,
+        userPwd: String,
+        success: (Patient, User) -> Unit,
+        error: () -> Unit
+    )
 
 }

@@ -1,9 +1,9 @@
 package br.com.jujuhealth.physio.ui.details.training
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +19,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,12 +35,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
-import br.com.jujuhealth.physio.data.model.ViewModelState
-import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails
 import br.com.jujuhealth.physio.ui.uikit.CreateTopBar
+import br.com.jujuhealth.physio.ui.uikit.TextField
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -122,6 +121,7 @@ fun CreateTrainingDetailsScreen(
     }
 
     Scaffold(
+        backgroundColor = colorResource(MR.colors.colorPrimary),
         topBar = {
             CreateTopBar(stringResource(MR.strings.exercise_toolbar_name)) {
                 navigator?.pop()
@@ -209,18 +209,11 @@ fun CreateTrainingDiaryDetails(
         horizontalAlignment = Alignment.End
     ) {
         TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = newFeedback,
+            text = newFeedback,
             onValueChange = {
                 newFeedback = it
             },
-            placeholder = {
-                Text(stringResource(MR.strings.feedback_hint))
-            },
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.Black,
-                cursorColor = Color.Black
-            )
+            hint = stringResource(MR.strings.feedback_hint)
         )
 
         Button(
@@ -252,9 +245,11 @@ fun CreateTrainingDiaryDetails(
     ) {
         trainingDiary.feedbacks.forEach { feedback ->
             item {
-                Text(
-                    text = feedback, fontSize = 16.sp
-                )
+                Card(modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
+                    Text(modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        text = feedback, fontSize = 16.sp
+                    )
+                }
                 Divider()
             }
         }

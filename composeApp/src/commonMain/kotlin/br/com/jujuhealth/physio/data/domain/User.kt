@@ -1,4 +1,4 @@
-package br.com.jujuhealth.physio.data.model
+package br.com.jujuhealth.physio.data.domain
 
 import kotlinx.serialization.Serializable
 
@@ -8,8 +8,5 @@ data class User(
     var uId: String? = "",
     val email: String? = "",
     val providerId: String? = "",
-    val patients: List<String> = mutableListOf()
-) {
-
-    var mutablePatientList = mutableListOf<Patient>()
-}
+    val patients: MutableList<String> = mutableListOf()
+)

@@ -1,10 +1,9 @@
 package br.com.jujuhealth.physio.ui.details.training
 
-import androidx.compose.ui.hapticfeedback.HapticFeedback
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.TrainingDiary
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.data.use_case.PutPatientDiaryFeedbackUseCase
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -24,7 +23,7 @@ class TrainingDetailsScreenModel(
         _trainingDiary
 
     fun addFeedBack(patientId: String?, trainingDiary: TrainingDiary, newFeedback: String) {
-        _trainingDiary.update { ViewModelState.Loading(true) }
+        _trainingDiary.update { ViewModelState.Loading }
         screenModelScope.launch {
             putPatientDiaryFeedbackUseCase.run(
                 patientId = patientId,
@@ -45,9 +44,9 @@ class TrainingDetailsScreenModel(
 
     private fun handleError(stringRes: StringResource? = null) {
         stringRes?.let { res ->
-            _trainingDiary.update { ViewModelState.Error(ErrorModel(res)) }
+            _trainingDiary.update { ViewModelState.Error(MessageModel(res)) }
         } ?: run {
-            _trainingDiary.update { ViewModelState.Error(ErrorModel(MR.strings.general_error_message)) }
+            _trainingDiary.update { ViewModelState.Error(MessageModel(MR.strings.general_error_message)) }
         }
     }
 }

@@ -1,8 +1,8 @@
 package br.com.jujuhealth.physio.ui.login
 
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.data.use_case.SignInUseCase
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -31,9 +31,9 @@ class LoginScreenModel(private val signInUseCase: SignInUseCase) : ScreenModel {
 
     private fun handleError(stringRes: StringResource? = null) {
         stringRes?.let { res ->
-            _loginStateResult.update { ViewModelState.Error(ErrorModel(res)) }
+            _loginStateResult.update { ViewModelState.Error(MessageModel(res)) }
         } ?: run {
-            _loginStateResult.update { ViewModelState.Error(ErrorModel(MR.strings.general_error_message)) }
+            _loginStateResult.update { ViewModelState.Error(MessageModel(MR.strings.general_error_message)) }
         }
     }
 

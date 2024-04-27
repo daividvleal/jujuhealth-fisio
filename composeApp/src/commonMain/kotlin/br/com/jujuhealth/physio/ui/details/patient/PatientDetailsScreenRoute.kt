@@ -1,7 +1,9 @@
 package br.com.jujuhealth.physio.ui.details.patient
 
-import CreateGenericError
+import CreateMessage
+import MessageType
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +19,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,10 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.ErrorModel
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
-import br.com.jujuhealth.physio.data.model.ViewModelState
+import br.com.jujuhealth.physio.data.domain.MessageModel
+import br.com.jujuhealth.physio.data.domain.Patient
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.ViewModelState
 import br.com.jujuhealth.physio.ui.details.training.TrainingDetailsScreenRoute
 import br.com.jujuhealth.physio.ui.uikit.CreateGenericLoading
 import br.com.jujuhealth.physio.ui.uikit.CreatePersonDetails
@@ -60,9 +61,9 @@ class PatientDetailsScreenRoute(
                 }
 
                 is ViewModelState.Error -> { _ ->
-                    val errorModel =
-                        (patientDiaryListStateFlow as ViewModelState.Error).error as ErrorModel
-                    CreateGenericError(errorModel)
+                    val messageModel =
+                        (patientDiaryListStateFlow as ViewModelState.Error).error as MessageModel
+                    CreateMessage(messageModel, MessageType.ERROR)
                 }
 
                 is ViewModelState.Loading -> { _ ->
@@ -90,6 +91,7 @@ fun CreatePatientDetailsScreen(
     val navigator = LocalNavigator.current
 
     Scaffold(
+        backgroundColor = colorResource(MR.colors.colorPrimary),
         topBar = {
             CreateTopBar(stringResource(MR.strings.patient_toolbar_name)) {
                 navigator?.pop()
@@ -126,7 +128,7 @@ fun createTrainingDiaryListContent(trainingDiaryList: ArrayList<*>?, patient: Pa
                 }
             }
         }
-    } ?: run { CreateGenericError(ErrorModel(MR.strings.general_empty_message)) }
+    } ?: run { CreateMessage(MessageModel(MR.strings.general_training_empty_message), MessageType.ALERT) }
 }
 
 @Composable

@@ -1,8 +1,7 @@
 package br.com.jujuhealth.physio.data.use_case
 
 import br.com.jujuhealth.physio.MR
-import br.com.jujuhealth.physio.data.model.Patient
-import br.com.jujuhealth.physio.data.model.TrainingDiary
+import br.com.jujuhealth.physio.data.domain.TrainingDiary
 import br.com.jujuhealth.physio.data.request.patient.ServicePatientContract
 import dev.icerock.moko.resources.StringResource
 
