@@ -9,15 +9,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun CreateTopBar(title: String, onNavigationIconClick: () -> Unit = {}) {
+fun CreateTopBar(title: String, icon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack, onNavigationIconClick: () -> Unit = {}) {
     TopAppBar(
         title = { Text(text = title, fontWeight = FontWeight.Bold) },
         navigationIcon = {
             IconButton(onClick = onNavigationIconClick) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                Icon(icon, contentDescription = "Back")
             }
         },
         backgroundColor = MaterialTheme.colors.primaryVariant,

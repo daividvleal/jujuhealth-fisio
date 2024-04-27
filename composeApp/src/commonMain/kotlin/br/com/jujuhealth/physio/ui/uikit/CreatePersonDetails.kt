@@ -32,7 +32,7 @@ fun CreatePersonDetails(
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
-                .background(colorResource(MR.colors.colorPrimary)),
+                .background(colorResource(MR.colors.colorPrimaryDark)),
         ) {
             Text(
                 text = generateInitials(personName),
