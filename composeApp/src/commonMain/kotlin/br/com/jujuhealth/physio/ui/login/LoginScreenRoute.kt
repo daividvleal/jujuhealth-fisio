@@ -71,7 +71,7 @@ data object LoginScreenRoute : Screen {
             }
 
             is ViewModelState.Success -> {
-                buttonLoading = true
+                buttonLoading = false
                 errorMessage = String()
                 navigator.popUntilRoot()
                 navigator.push(HomeScreenRoute)

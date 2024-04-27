@@ -41,6 +41,7 @@
     <string name="exercise_toolbar_name">Adicionar Paciente</string>
     <string name="confirm_pwd">Repita a senha:</string>
     <string name="add">Adicionar</string>
+    <string name="invalid_fields_error_message">Adicionar</string>
     <!-- Exercise Screen -->
 
     <!-- General Screen -->

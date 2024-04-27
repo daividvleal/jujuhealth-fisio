@@ -252,9 +252,11 @@ fun CreateTrainingDiaryDetails(
     ) {
         trainingDiary.feedbacks.forEach { feedback ->
             item {
-                Text(
-                    text = feedback, fontSize = 16.sp
-                )
+                Card(modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
+                    Text(
+                        text = feedback, fontSize = 16.sp
+                    )
+                }
                 Divider()
             }
         }

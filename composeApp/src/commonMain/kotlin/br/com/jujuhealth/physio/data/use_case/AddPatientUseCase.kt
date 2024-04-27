@@ -13,29 +13,28 @@ class AddPatientUseCase(
 ) {
 
     suspend fun run(
-        patient: Patient?,
-        pwd: String?,
-        confirmPwd: String?,
+        patient: Patient,
+        pwd: String,
+        confirmPwd: String,
         success: (Patient) -> Unit,
         error: (errorMessage: StringResource?) -> Unit
     ) {
         if (validateField(patient, pwd, confirmPwd)) {
             serviceAuth.signUp(
-                name = patient?.name.orEmpty(),
-                email = patient?.email.orEmpty(),
-                password = pwd.orEmpty(),
+                name = patient.name.orEmpty(),
+                email = patient.email.orEmpty(),
+                password = pwd,
                 success = success::invoke,
                 error = {
                     error.invoke(MR.strings.general_error_message)
                 }
             )
         } else {
-            error.invoke(MR.strings.general_error_message)
+            error.invoke(MR.strings.invalid_fields_error_message)
         }
-
     }
 
-    fun validateField(
+    private fun validateField(
         patient: Patient?,
         pwd: String?,
         confirmPwd: String?

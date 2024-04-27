@@ -95,19 +95,25 @@ class ServiceAuthImpl(private val auth: FirebaseAuth, private val database: Fire
         error: () -> Unit
     ) {
         try {
-            auth.createUserWithEmailAndPassword(email, password).runCatching {
+            val patient = Patient(
+                name = name,
+                email = email,
+                providerId = auth.currentUser?.providerId,
+                uId = auth.currentUser?.uid
+            )
+            val result = auth.createUserWithEmailAndPassword(email, password).runCatching {
                 val id = this.user?.uid ?: run { email }
-                val patient = Patient(
-                    name = name,
-                    email = email,
-                    providerId = auth.currentUser?.providerId,
-                    uId = auth.currentUser?.uid
-                )
+
                 database.collection(COLLECTION_USERS).document(id).set(
                     patient
                 ).runCatching {
                     success(patient)
                 }
+            }
+            if (result.isSuccess) {
+                success(patient)
+            } else {
+                error()
             }
         } catch (e: Exception) {
             error.invoke()
