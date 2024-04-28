@@ -44,6 +44,7 @@
     <string name="invalid_fields_error_message">Ops, parece que algum dos campos está inválido, verifique os campos e tente novamente.</string>
     <string name="invalid_pwd">Verifique sua senha e tente novamente.</string>
     <string name="add_patient_info">Insira as informações para criar a conta do Paciente.</string>
+    <string name="add_patient_success">Paciente adicionado com sucesso.</string>
     <!-- Exercise Screen -->
 
     <!-- General Screen -->

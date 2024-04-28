@@ -42,25 +42,22 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
 
-data class AddPatientScreenRoute(
-    private val onAddPatient: () -> Unit
-) : Screen {
+data object AddPatientScreenRoute : Screen {
     @Composable
     override fun Content() {
         val addPatientScreenModel: AddPatientScreenModel = getScreenModel()
-        CreateAddPatientScreenRoute(addPatientScreenModel, onAddPatient)
+        CreateAddPatientScreenRoute(addPatientScreenModel)
     }
 }
 
 @Composable
 fun CreateAddPatientScreenRoute(
-    addPatientScreenModel: AddPatientScreenModel,
-    onAddPatient: () -> Unit
+    addPatientScreenModel: AddPatientScreenModel
 ) {
     val navigator = LocalNavigator.current
     var buttonLoading by rememberSaveable { mutableStateOf(false) }
     var error by rememberSaveable { mutableStateOf(false) }
-    var messageModel by rememberSaveable { mutableStateOf<MessageModel?>(null) }
+    var messageModel by remember { mutableStateOf<MessageModel?>(null) }
     var success by rememberSaveable { mutableStateOf(false) }
 
     val addModelState by addPatientScreenModel.addModelState.collectAsState()
@@ -69,7 +66,7 @@ fun CreateAddPatientScreenRoute(
             buttonLoading = false
             error = false
             success = true
-            onAddPatient.invoke()
+            messageModel = MessageModel(MR.strings.add_patient_success)
         }
 
         is ViewModelState.Error -> {
@@ -144,6 +141,7 @@ fun CreateForm(
             email = ""
             pwd = ""
             confirmPwd = ""
+            userPwd = ""
         }
         else -> Unit
     }

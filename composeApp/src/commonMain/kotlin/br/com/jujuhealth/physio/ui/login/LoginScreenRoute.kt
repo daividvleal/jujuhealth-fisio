@@ -97,8 +97,8 @@ fun LoginScree(
     errorMessage: String = String()
 ) {
 
-    var email by rememberSaveable { mutableStateOf("daivid.v.leal@gmail.com") }
-    var password by rememberSaveable { mutableStateOf("123456") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize().background(colorResource(MR.colors.colorPrimary)),

@@ -99,9 +99,7 @@ fun CreateHomeScreen(
             FloatingActionButton(
                 backgroundColor = MaterialTheme.colors.primaryVariant,
                 onClick = {
-                    navigator.push(AddPatientScreenRoute {
-                        homeScreenModel.loadPatients(user)
-                    })
+                    navigator.push(AddPatientScreenRoute)
                 },
                 modifier = Modifier.padding(16.dp)
                     .size(56.dp)
